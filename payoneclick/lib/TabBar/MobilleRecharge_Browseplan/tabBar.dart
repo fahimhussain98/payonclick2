@@ -12,7 +12,7 @@ class MobileRechargeTabBar extends StatefulWidget {
   final String userID;
   final String? selectedState;
   final String? dropdownValue2; // this holds operator name
-  final String serviceID;
+ // final String serviceID;
 
   const MobileRechargeTabBar({
     super.key,
@@ -20,7 +20,7 @@ class MobileRechargeTabBar extends StatefulWidget {
     required this.userID,
     this.selectedState,
     this.dropdownValue2,
-    required this.serviceID,
+  //  required this.serviceID,
   });
 
   @override
@@ -51,7 +51,7 @@ class _MobileRechargeTabBarState extends State<MobileRechargeTabBar> with Single
 
     var result = await apiService.getfullTT(
       widget.userID,
-      widget.dropdownValue2 ?? "VI",
+      widget.dropdownValue2 ?? "",
       widget.selectedState ?? "Delhi",
     );
 

@@ -385,16 +385,11 @@ Future<MyPlanModelRS?> getMyPlain(String userID,String dropdownValue2,int mobile
       });
 
       var response = await http.post(url, headers: headers, body: body);
-
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-
-        // Debugging: Print the type and content of jsonResponse
-        print('jsonResponse type: ${jsonResponse.runtimeType}');
-        print('jsonResponse: $jsonResponse');
+        print('API Response: $jsonResponse'); // Add this line for debugging
 
         if (jsonResponse is Map<String, dynamic> && jsonResponse['statuscode'] == 'TXN') {
-          // Ensure `data` is decoded if necessary
           if (jsonResponse['data'] is String) {
             jsonResponse['data'] = jsonDecode(jsonResponse['data']);
           }
@@ -411,6 +406,81 @@ Future<MyPlanModelRS?> getMyPlain(String userID,String dropdownValue2,int mobile
     }
     return null;
   }
+
+  //     if (response.statusCode == 200) {
+  //       var jsonResponse = jsonDecode(response.body);
+  //
+  //       // Debugging: Print the type and content of jsonResponse
+  //       print('jsonResponse type: ${jsonResponse.runtimeType}');
+  //       print('jsonResponse: $jsonResponse');
+  //
+  //       if (jsonResponse is Map<String, dynamic> && jsonResponse['statuscode'] == 'TXN') {
+  //         // Ensure `data` is decoded if necessary
+  //         if (jsonResponse['data'] is String) {
+  //           jsonResponse['data'] = jsonDecode(jsonResponse['data']);
+  //         }
+  //         return DthBrowseModelTransaction.fromJson(jsonResponse);
+  //       } else {
+  //         print('Error message getBrowsePlan: $jsonResponse');
+  //       }
+  //     } else {
+  //       print('Failed to fetch getBrowsePlan: ${response.statusCode}');
+  //       print('Response body getBrowsePlan: ${response.body}');
+  //     }
+  //   } catch (e) {
+  //     print('Error getBrowsePlan: $e');
+  //   }
+  //   return null;
+  // }
+//----------------------DTH Recharge Screen Sundirect(Browse Plains)--------------------------
+//   Future<DthBrowse_SundirectModel?> getDthBrowsePlan_Sundirect(String userID, String dropdownValue2, String subscribeIDcontroller,) async { //dropdownValue2 => operatorNmae *DTH, //subscribeIDcontroller /*consumerno => "9643150091
+//     try {
+//       var url = Uri.parse('http://api.payonclick.in/Vr1.0/74536/DJKIJF09320923JSDFOJDFLMSDS/KVLKMS09232309283KJSDJLWLEEJ203/api/MplanGetDthPlan');
+//       final headers = {
+//         'Authorization': 'Basic ${base64Encode(utf8.encode('webtech#\$%^solution\$\$&&@@&^&july2k21:basic%%##@&&auth&#&#&#&@@#&pasWtS2021'))}',
+//         'Content-Type': 'application/json',
+//       };
+//       final body = jsonEncode({
+//         "userID": userID,
+//         "tokenKey": "1234",
+//         "deviceInfo": "1234",
+//         "operatorName": dropdownValue2,
+//         "consumerno": subscribeIDcontroller,
+//       });
+//
+//       var response = await http.post(url, headers: headers, body: body);
+//
+//       if (response.statusCode == 200) {
+//         var jsonResponse = jsonDecode(response.body);
+//         if (jsonResponse is Map<String, dynamic> && jsonResponse['statuscode'] == 'TXN') {
+//           var dataJson = jsonResponse['data'];
+//
+//           if (dataJson is String) {
+//             dataJson = jsonDecode(dataJson);
+//           }
+//           return DthBrowse_SundirectModel.fromJson(jsonResponse);;
+//
+//           // return DthBrowse_SundirectModel.fromJson({
+//           //   'statuscode': jsonResponse['statuscode'],
+//           //   'status': jsonResponse['status'],
+//           //   'data': dataJson,
+//           // });
+//         } else {
+//           print('Error message getDthBrowsePlan_Sundirect: $jsonResponse');
+//           return null;
+//         }
+//       } else {
+//         print('Failed to fetch getDthBrowsePlan_Sundirect: ${response.statusCode}');
+//         print('Response body getDthBrowsePlan_Sundirect: ${response.body}');
+//         return null;
+//       }
+//     } catch (e) {
+//       print('Error getDthBrowsePlan_Sundirect: $e');
+//       return null;
+//     }
+//   }
+
+
 
 
 

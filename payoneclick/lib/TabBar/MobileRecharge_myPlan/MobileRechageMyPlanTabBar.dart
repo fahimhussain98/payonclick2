@@ -9,7 +9,7 @@ class MobileChargeMyPlanTabBar extends StatefulWidget {
   final String? dropdownValue2; // this holds operator name
   final int mobileNumber;
 //  final int  mobileNumber; //this is the mobile number field
-  final String serviceID;
+ // final String serviceID;
 
   const MobileChargeMyPlanTabBar({
     super.key,
@@ -17,7 +17,7 @@ class MobileChargeMyPlanTabBar extends StatefulWidget {
     required this.userID,
     this.dropdownValue2,
     required this.mobileNumber,
-    required this.serviceID
+ //   required this.serviceID
   });
 
   @override

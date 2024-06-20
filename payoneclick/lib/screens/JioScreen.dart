@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:payoneclick/Api_Services/Api_Service.dart';
 import 'package:payoneclick/Api_Services/Api_models/MainWBModel.dart';
 import 'package:payoneclick/Api_Services/Api_models/RechargeModel/DropDrownButtonModel.dart';
+import 'package:payoneclick/TabBar/DTH_BrowsePlan/DTH_browsePlan.dart';
 import 'package:payoneclick/TabBar/MobileRecharge_myPlan/MobileRechageMyPlanTabBar.dart';
 import 'package:payoneclick/TabBar/MobilleRecharge_Browseplan/tabBar.dart';
 
@@ -35,6 +36,8 @@ class JioScreen extends StatefulWidget {
 
 class _JioScreenState extends State<JioScreen> {
   TextEditingController subscribeIDcontroller = TextEditingController(); //mobileNumberController hai
+  TextEditingController amountController = TextEditingController(); // this is hold the DTh_brosePlan screen amount
+
   var showStateTextField = false;
   var dropdownValue;
   MainWBModel? MWBmodel;
@@ -111,6 +114,7 @@ class _JioScreenState extends State<JioScreen> {
     print(selectedState);
     print(dropdownValue2);
     print(subscribeIDcontroller);
+    print("ye hai callbackAmount${amountController}");
 
 
     return  Scaffold(
@@ -325,7 +329,11 @@ class _JioScreenState extends State<JioScreen> {
                           SizedBox(
                             height: 50, // Specify the desired height here
                             child: TextField(
+                              controller: amountController,
                               decoration: InputDecoration(
+
+                                  labelText: 'Amount',
+
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey), // Set the default border color to gray
                                 ),
@@ -370,7 +378,7 @@ class _JioScreenState extends State<JioScreen> {
                                                 userID: widget.userID,
                                                 selectedState: selectedState,
                                                 dropdownValue2: dropdownValue2,
-                                                  serviceID: "1"
+                                                //  serviceID: "1"
 
                                                 //   userID: userID,
                                                 // dropdownValue: dropdownValue2, //this is hold the value Operator
@@ -381,11 +389,38 @@ class _JioScreenState extends State<JioScreen> {
                                       child: Text("Browse Plan",style: TextStyle(fontSize: 13,))
                                   ),
                                   ]else ...[
-                                    Text("Browse Plan",style: TextStyle(fontSize: 13,)),
+                                    InkWell(
+                                      onTap: () async{
+                                        // Navigator.push(context, MaterialPageRoute(builder: (ctx) => DthBrowsePlan(
+                                        final selectedAmount = await Navigator.push(context, MaterialPageRoute(builder: (ctx) => DthBrowsePlan(
+
+                                              title: "Your Plan",
+                                              userID: widget.userID,
+                                              dropdownValue2: dropdownValue2,
+                                              subscribeIDcontroller : subscribeIDcontroller.text,
+
+                                              //-------------------------------------------------
+                                              // onAmountSelected: (String amount) { // this is callback methode from DTH_browseplan screen
+                                              //   setState(() {
+                                              //     amountController.text = amount;
+                                              //   });
+                                              // },
+
+
+                                            ) ));
+                                        if(selectedAmount != null && selectedAmount is String){
+                                        //  print("Received Amount: $selectedAmount"); // Debug print
+                                          setState(() {
+                                            amountController.text = selectedAmount;
+                                          });
+                                        }
+
+                                      },
+                                      child: Text("Browse Plan",style: TextStyle(fontSize: 13,))),
                                   ],
                                   Spacer(),
-
-                                  if(widget.fromMobileRecharge) ...[
+                                  //here is the mobileRecharge. myplain
+                                  if(widget.fromMobileRecharge) ...[  //this is flag
                                     InkWell(
                                     onTap: (){
                                       int mobileNumber = int.tryParse(subscribeIDcontroller.text) ?? 0;
@@ -399,7 +434,7 @@ class _JioScreenState extends State<JioScreen> {
                                                // mobileNumber: subscribeIDcontroller,
                                                 mobileNumber: mobileNumber,
                                                 dropdownValue2: dropdownValue2, //hold the operator name  mobile //state is not IN there API
-                                                  serviceID: "1"
+                                                //  serviceID: "1"
                                                 //   userID: userID,
                                                 // dropdownValue: dropdownValue2, //this is hold the value Operator
                                                 // selectedState: selectedState, //this is hold the circle

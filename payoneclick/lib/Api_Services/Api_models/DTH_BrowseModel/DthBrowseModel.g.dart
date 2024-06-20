@@ -37,12 +37,14 @@ Map<String, dynamic> _$DthBrowse_DataToJson(DthBrowse_Data instance) =>
 
 DthBrowse_Records _$DthBrowse_RecordsFromJson(Map<String, dynamic> json) =>
     DthBrowse_Records(
-      plan: (json['Plan'] as List<dynamic>)
-          .map((e) => DthBrowse_Plan.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      addOnPack: (json['Add-On Pack'] as List<dynamic>)
-          .map((e) => AddOnPack.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      plan: (json['Plan'] as List<dynamic>?)
+              ?.map((e) => DthBrowse_Plan.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      addOnPack: (json['Add-On Pack'] as List<dynamic>?)
+              ?.map((e) => AddOnPack.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$DthBrowse_RecordsToJson(DthBrowse_Records instance) =>
@@ -53,7 +55,10 @@ Map<String, dynamic> _$DthBrowse_RecordsToJson(DthBrowse_Records instance) =>
 
 DthBrowse_Plan _$DthBrowse_PlanFromJson(Map<String, dynamic> json) =>
     DthBrowse_Plan(
-      rs: Map<String, String>.from(json['rs'] as Map),
+      rs: (json['rs'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          {},
       desc: json['desc'] as String,
       planName: json['plan_name'] as String,
       lastUpdate: json['last_update'] as String,
@@ -68,7 +73,10 @@ Map<String, dynamic> _$DthBrowse_PlanToJson(DthBrowse_Plan instance) =>
     };
 
 AddOnPack _$AddOnPackFromJson(Map<String, dynamic> json) => AddOnPack(
-      rs: Map<String, String>.from(json['rs'] as Map),
+      rs: (json['rs'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          {},
       desc: json['desc'] as String,
       planName: json['plan_name'] as String,
       lastUpdate: json['last_update'] as String,

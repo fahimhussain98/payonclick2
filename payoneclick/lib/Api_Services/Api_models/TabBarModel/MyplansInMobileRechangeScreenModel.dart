@@ -40,7 +40,10 @@ class MyPlanModelRS_data {
     return MyPlanModelRS_data(
       tel: json['tel'],
       operator: json['operator'],
-      records: List<Record>.from(json['records'].map((record) => Record.fromJson(record))),
+      // records: List<Record>.from(json['records'].map((record) => Record.fromJson(record))),
+      records: json['records'] != null
+          ? List<Record>.from(json['records'].map((record) => Record.fromJson(record)))
+          : [],
       status: json['status'],
       time: json['time'].toDouble(),
     );
@@ -58,7 +61,8 @@ class Record {
 
   factory Record.fromJson(Map<String, dynamic> json) {
     return Record(
-      rs: json['rs'],
+      // rs: json['rs'],
+      rs: json['rs'].toString(),  // Convert to String if needed
       desc: json['desc'],
     );
   }
