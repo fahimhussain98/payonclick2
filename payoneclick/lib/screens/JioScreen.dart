@@ -7,6 +7,7 @@ import 'package:payoneclick/Api_Services/Api_Service.dart';
 import 'package:payoneclick/Api_Services/Api_models/MainWBModel.dart';
 import 'package:payoneclick/Api_Services/Api_models/RechargeModel/DropDrownButtonModel.dart';
 import 'package:payoneclick/TabBar/DTH_BrowsePlan/DTH_browsePlan.dart';
+import 'package:payoneclick/TabBar/DTH_myPlan/Dth_myPlain.dart';
 import 'package:payoneclick/TabBar/MobileRecharge_myPlan/MobileRechageMyPlanTabBar.dart';
 import 'package:payoneclick/TabBar/MobilleRecharge_Browseplan/tabBar.dart';
 
@@ -367,6 +368,7 @@ class _JioScreenState extends State<JioScreen> {
                                         ),
 
                                       ]),
+                                  //this is Mob.Rech.=>Browse plain
                                   if(widget.fromMobileRecharge) ...[
                                     InkWell(
                                     onTap: () {
@@ -377,7 +379,7 @@ class _JioScreenState extends State<JioScreen> {
                                                 title: "Your Plan",
                                                 userID: widget.userID,
                                                 selectedState: selectedState,
-                                                dropdownValue2: dropdownValue2,
+                                                dropdownValue2: dropdownValue2,//this is hold the value of the getOperator
                                                 //  serviceID: "1"
 
                                                 //   userID: userID,
@@ -388,7 +390,9 @@ class _JioScreenState extends State<JioScreen> {
                                     },
                                       child: Text("Browse Plan",style: TextStyle(fontSize: 13,))
                                   ),
-                                  ]else ...[
+                                  ]
+                                  //this is DTH =>  DthBrowsePlan
+                                  else ...[
                                     InkWell(
                                       onTap: () async{
                                         // Navigator.push(context, MaterialPageRoute(builder: (ctx) => DthBrowsePlan(
@@ -419,7 +423,7 @@ class _JioScreenState extends State<JioScreen> {
                                       child: Text("Browse Plan",style: TextStyle(fontSize: 13,))),
                                   ],
                                   Spacer(),
-                                  //here is the mobileRecharge. myplain
+                                  //here is the Mob.Rechar. =>  myplain
                                   if(widget.fromMobileRecharge) ...[  //this is flag
                                     InkWell(
                                     onTap: (){
@@ -429,7 +433,7 @@ class _JioScreenState extends State<JioScreen> {
                                       context,
                                           MaterialPageRoute(builder: (context) =>
                                               MobileChargeMyPlanTabBar(
-                                                title: 'My Plan',
+                                                title: 'My Mobile Recharge Plan',
                                                 userID: widget.userID,
                                                // mobileNumber: subscribeIDcontroller,
                                                 mobileNumber: mobileNumber,
@@ -445,9 +449,26 @@ class _JioScreenState extends State<JioScreen> {
                                     child: Text(
                                       "My plains ",style: TextStyle(fontSize: 13,color: Colors.indigo),),
                                   ),
-                                  ] else ...[
-                                    Text(
-                                      "My plains ",style: TextStyle(fontSize: 13,color: Colors.indigo),),
+                                  ]
+                                  //here is DTH. Rechage => my Plain
+                                  else ...[
+                                    InkWell(
+                                      onTap: (){
+                                        int mobileNumber = int.tryParse(subscribeIDcontroller.text) ?? 0;
+
+                                        Navigator.push(context, MaterialPageRoute(builder: (ctx) =>Dth_myPlain(
+                                          title: ("Dth My Plain"),
+                                          userID: widget.userID,
+                                          mobileNumber: mobileNumber,
+                                          dropdownValue2: dropdownValue2,
+
+
+                                        )
+                                        ));
+                                      },
+                                      child: Text(
+                                        "My plains ",style: TextStyle(fontSize: 13,color: Colors.indigo),),
+                                    ),
                                   ],
 
                                   Image.asset("image/ACE.png"),

@@ -77,12 +77,14 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:payoneclick/Api_Services/Api_models/AePS_WB_Model.dart';
-import 'package:payoneclick/Api_Services/Api_models/BrowsePlan%20Model/BrowsePlanModel.dart';
+// import 'package:payoneclick/Api_Services/Api_models/BrowsePlan%20Model/BrowsePlanModel.dart';
 import 'package:payoneclick/Api_Services/Api_models/DTH_BrowseModel/DthBrowseModel.dart';
+import 'package:payoneclick/Api_Services/Api_models/DTH_MyPlainmodel/DTH_myPlainModel.dart';
 import 'dart:convert';
 
 import 'package:payoneclick/Api_Services/Api_models/Login_Model.dart';
 import 'package:payoneclick/Api_Services/Api_models/MainWBModel.dart';
+import 'package:payoneclick/Api_Services/Api_models/MobileRechargeBrowsePlan%20Model/BrowsePlanModel.dart';
 import 'package:payoneclick/Api_Services/Api_models/RechargeModel/DropDrownButtonModel.dart';
 import 'package:payoneclick/Api_Services/Api_models/RechargeModel/RechargeReportModel.dart';
 import 'package:payoneclick/Api_Services/Api_models/TabBarModel/MyplansInMobileRechangeScreenModel.dart';
@@ -484,7 +486,51 @@ Future<MyPlanModelRS?> getMyPlain(String userID,String dropdownValue2,int mobile
 
 
 
-//----------------------DTH Recharge Screen(My Plains)------------------------------
+//----------------------DTH Screen(My Plains)------------------------------
+
+  Future<DthMyPlanModel?> getDthMyPlain(String userID,String dropdownValue2,int mobileNumber)async{//dropdownValue2 => operatorNmae, //mobileNumber => subscribeID //selectedState => circle **API me nai hai
+    var url = Uri.parse("http://api.payonclick.in/Vr1.0/74536/DJKIJF09320923JSDFOJDFLMSDS/KVLKMS09232309283KJSDJLWLEEJ203/api/MplanGetCustomerInfo");
+    final headers = {
+      'Authorization': 'Basic ${base64Encode(utf8.encode('webtech#\$%^solution\$\$&&@@&^&july2k21:basic%%##@&&auth&#&#&#&@@#&pasWtS2021'))}',
+      'Content-Type': 'application/json',
+    };
+    final body = jsonEncode({
+      "userID": userID,
+      'dthNo' : mobileNumber,
+      "operatorName": dropdownValue2, //
+      "tokenKey": "1234",
+      "deviceInfo": "1234",
+
+    });
+    var response = await http.post(url, headers: headers, body: body);
+
+    try{
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+
+        // Debugging: Print the type and content of jsonResponse
+        print('jsonResponse type Dth_myPlainsAPI service: ${jsonResponse.runtimeType}');
+        print('jsonResponse Dth_myPlainsAPI service: $jsonResponse');
+
+        if (jsonResponse is Map<String, dynamic> && jsonResponse['statuscode'] == 'TXN') {
+          // Ensure `data` is decoded if necessary
+          if (jsonResponse['data'] is String) {
+            jsonResponse['data'] = jsonDecode(jsonResponse['data']);
+          }
+          return DthMyPlanModel.fromJson(jsonResponse);
+        } else {
+          print('Error message Dth_myPlainsAPI service: $jsonResponse');
+        }
+      } else {
+        print('Failed to fetch Dth_myPlainsAPI service: ${response.statusCode}');
+        print('Response body Dth_myPlainsAPI service: ${response.body}');
+      }
+    } catch (e) {
+      print('Error Dth_myPlainsAPI service: $e');
+    }
+    return null;
+
+  }
 
 
 

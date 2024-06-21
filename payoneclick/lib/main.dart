@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:payoneclick/Api_Services/Api_models/Login_Model.dart';
 import 'package:payoneclick/TabBar/DTH_BrowsePlan/DTH_browsePlan.dart';
 import 'package:payoneclick/TabBar/DTH_BrowsePlan/DTH_browsePlanForSundirct.dart';
+import 'package:payoneclick/TabBar/DTH_myPlan/Dth_myPlain.dart';
 import 'package:payoneclick/screens/Loginpage.dart';
 
 
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
     //  home: fullTT(userID: "AhCtz8JqpO5ZZSAo4QSneFunsKFHQMXB",dropdownValue2: "Reliance Jio",selectedState: "Delhi NCR",),
     //  home: DthBrowsePlan(),
    //   home:DthBrowsePlanSundirectg(userID: 'AhCtz8JqpO6IkDSupQR/p1unsKFHQMXB', dropdownValue2: 'sundirect',subscribeIDcontroller:'8448505251'),
+   //   home: Dth_myPlain(),
 
     );
   }
